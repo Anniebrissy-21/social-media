@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+
+{%block mainblock%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <form action="" method="post" class="mt-3 d-flex">
+
+                {%csrf_token%}
+               <input type="text" name="text" placeholder="write comment" class="form-control shadow-none">
+                <button type="submit" class="btn btn-outline-secondary ms-3">Add</button>
+            </form>
+            <div class="mt-3">
+                <h5><strong>Comments</strong></h5>
+                {%for c in comments%}
+                <div class="ms-2">
+                    {{c.user.username}}
+                </div>
+                <div class="ms-3">
+                    Comment : {{c.text}}</div>
+                
+                <div style="margin-left: 100px;"><a href="{%url 'comment-delete' c.id%}">delete</a></div>
+                
+                {%endfor%}
+                
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+
+
+{%endblock%}

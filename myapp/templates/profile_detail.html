@@ -1,0 +1,74 @@
+{%extends 'base.html'%}
+
+{%block mainblock%}
+<div class="container" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+   <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class=" mb-3 mt-5 " style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                {%if data.profile_picture%}
+
+                <img src="{{data.profile_picture.url}}" class="img-fluid rounded-pill" alt="..." width="90%">
+
+                {%endif%}
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title ms-5"><strong>{{data.user.username}}</strong></h5>
+                  <p class="card-text mt-4 ms-5"><strong>BIO : </strong>{{data.bio}}</p>
+                  <p class="card-text ms-5"><strong>DOB : </strong>{{data.dob}}</p>
+
+                  
+                </div>
+                <form action="{%url 'profile-edit' request.user.profile.id%}">
+                  {%csrf_token%}
+                  <button type="submit" class="btn btn-outline-dark mt-4 ms-5">Edit Profile</button>
+                </form>
+              </div>
+              
+            </div>
+          </div>
+          
+          <hr>
+          
+          <div class="container">
+        
+            {%for p in posts%}
+           
+            <div class="card bg-black text-white" style="width: 30rem;" >
+              <div class="card-body">
+                <p class="card-text"><strong>{{p.title}}</strong></p>
+              </div>
+              <img src="{{p.post_image.url}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">{{p.description}}</p>
+              </div>
+              <div class="card-body">
+                <p class="card-text">{{p.created_date}}</p>
+              </div>
+              
+            </div>
+            <div style="overflow: hidden;  display: inline-block;">
+              <form action="{%url 'post-edit' p.id%}">
+                <button class="btn btn-outline-secondary">Edit Post</button>
+              </form>
+             <form action="{%url 'post-delete' p.id%}">
+              <button type="submit" class="btn btn-outline-secondary">Delete</button>
+             </form>
+            </div>
+            
+           <a href="{%url 'post-delete' p.id%}">delete</a>
+            {%endfor%}
+            
+          </div>
+    </div>
+    <div class="col-3"></div>
+   </div>
+  
+</div>
+
+{%endblock%}
+
+
